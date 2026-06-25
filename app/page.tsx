@@ -1,65 +1,173 @@
-import Image from "next/image";
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import ContentRow from "./components/ContentRow";
+import SkillCard from "./components/SkillCard";
+import ProjectCard from "./components/ProjectCard";
+import Footer from "./components/Footer";
+
+/* ===================================================================
+ * 髙橋 慧流（Satoru Takahashi）のハードコーディングデータ
+ * ================================================================= */
+
+const skills = {
+  frontend: [
+    { name: "React", icon: "⚛️", level: 4 },
+    { name: "Next.js", icon: "▲", level: 4 },
+    { name: "TypeScript", icon: "🔷", level: 4 },
+    { name: "HTML/CSS", icon: "🎨", level: 5 },
+    { name: "Tailwind CSS", icon: "💨", level: 4 },
+    { name: "JavaScript", icon: "⚡", level: 5 },
+  ],
+  backend: [
+    { name: "Node.js", icon: "🟢", level: 3 },
+    { name: "Python", icon: "🐍", level: 4 },
+    { name: "SQL", icon: "🗄️", level: 3 },
+    { name: "REST API", icon: "🔗", level: 4 },
+  ],
+  tools: [
+    { name: "Git", icon: "🔀", level: 4 },
+    { name: "Docker", icon: "🐳", level: 3 },
+    { name: "Linux", icon: "🐧", level: 3 },
+    { name: "VS Code", icon: "💻", level: 5 },
+    { name: "Figma", icon: "🎯", level: 3 },
+  ],
+};
+
+const projects = [
+  {
+    title: "Portfolio Website",
+    description:
+      "React / Next.js で構築した Netflix 風ポートフォリオサイト。SSR・ダークテーマ・アニメーションを実装。",
+    tags: ["Next.js", "React", "Tailwind CSS"],
+    imageGradient: "linear-gradient(135deg, #E50914 0%, #831010 100%)",
+  },
+  {
+    title: "Research Project",
+    description:
+      "複雑系科学に基づくシミュレーション・データ分析ツール。Python と可視化ライブラリを活用。",
+    tags: ["Python", "Data Science", "Visualization"],
+    imageGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  },
+  {
+    title: "Web Application",
+    description:
+      "フルスタック Web アプリケーション。ユーザー認証・データベース・REST API を実装。",
+    tags: ["Node.js", "React", "PostgreSQL"],
+    imageGradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+  },
+  {
+    title: "Mobile App Prototype",
+    description:
+      "UIプロトタイプからインタラクティブなモバイルアプリのコンセプトを開発。",
+    tags: ["React Native", "Figma", "UI/UX"],
+    imageGradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+  },
+];
+
+const education = {
+  university: "公立はこだて未来大学",
+  faculty: "システム情報科学部",
+  course: "複雑系コース",
+  year: "4年",
+  icon: "🎓",
+};
+
+/* ===================================================================
+ * Page Component
+ * ================================================================= */
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="flex flex-col min-h-screen bg-nf-black">
+      <Navbar />
+      <HeroSection />
+
+      {/* Main Content — Netflix-style rows */}
+      <main className="-mt-16 relative z-10">
+        {/* Skills: Frontend */}
+        <section id="skills">
+          <ContentRow title="🎯 Frontend Skills">
+            {skills.frontend.map((skill) => (
+              <SkillCard
+                key={skill.name}
+                name={skill.name}
+                icon={skill.icon}
+                category="Frontend"
+                level={skill.level}
+              />
+            ))}
+          </ContentRow>
+
+          {/* Skills: Backend */}
+          <ContentRow title="⚙️ Backend & Data">
+            {skills.backend.map((skill) => (
+              <SkillCard
+                key={skill.name}
+                name={skill.name}
+                icon={skill.icon}
+                category="Backend"
+                level={skill.level}
+              />
+            ))}
+          </ContentRow>
+
+          {/* Skills: Tools */}
+          <ContentRow title="🛠️ Tools & Environment">
+            {skills.tools.map((skill) => (
+              <SkillCard
+                key={skill.name}
+                name={skill.name}
+                icon={skill.icon}
+                category="Tools"
+                level={skill.level}
+              />
+            ))}
+          </ContentRow>
+        </section>
+
+        {/* Projects */}
+        <section id="projects">
+          <ContentRow title="🚀 Projects">
+            {projects.map((project) => (
+              <ProjectCard
+                key={project.title}
+                title={project.title}
+                description={project.description}
+                tags={project.tags}
+                imageGradient={project.imageGradient}
+              />
+            ))}
+          </ContentRow>
+        </section>
+
+        {/* Education */}
+        <section id="education" className="px-6 md:px-16 mb-16">
+          <h2 className="text-xl md:text-2xl font-bold mb-6 text-nf-white">
+            🎓 Education
+          </h2>
+          <div className="max-w-2xl bg-nf-card-bg rounded-md p-6 border border-nf-gray/30 card-hover">
+            <div className="flex items-start gap-5">
+              <div className="text-5xl">{education.icon}</div>
+              <div>
+                <h3 className="text-lg font-bold text-white mb-1">
+                  {education.university}
+                </h3>
+                <p className="text-sm text-nf-light-gray mb-1">
+                  {education.faculty}
+                </p>
+                <p className="text-sm text-nf-white/80">
+                  {education.course} — {education.year}
+                </p>
+                <div className="mt-3 inline-block px-3 py-1 bg-nf-red/20 text-nf-red text-xs font-semibold rounded">
+                  在籍中
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <Footer />
     </div>
   );
 }

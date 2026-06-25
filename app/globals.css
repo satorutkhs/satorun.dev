@@ -1,26 +1,169 @@
 @import "tailwindcss";
 
+/* ===== Netflix-inspired Dark Theme ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --nf-black: #141414;
+  --nf-dark: #1a1a1a;
+  --nf-gray: #2a2a2a;
+  --nf-light-gray: #808080;
+  --nf-white: #e5e5e5;
+  --nf-red: #E50914;
+  --nf-red-hover: #f40612;
+  --nf-card-bg: #181818;
+  --nf-gradient-top: rgba(20, 20, 20, 0);
+  --nf-gradient-bottom: rgba(20, 20, 20, 1);
+
+  --background: #141414;
+  --foreground: #e5e5e5;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-nf-black: var(--nf-black);
+  --color-nf-dark: var(--nf-dark);
+  --color-nf-gray: var(--nf-gray);
+  --color-nf-light-gray: var(--nf-light-gray);
+  --color-nf-white: var(--nf-white);
+  --color-nf-red: var(--nf-red);
+  --color-nf-red-hover: var(--nf-red-hover);
+  --color-nf-card-bg: var(--nf-card-bg);
+  --font-sans: var(--font-inter);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--nf-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--nf-gray);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nf-light-gray);
+}
+
+/* ===== Content Row Scroll ===== */
+.content-row-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.content-row-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(229, 9, 20, 0.6);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+/* Staggered animation delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* ===== Card hover effect ===== */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+/* ===== Skill card glow ===== */
+.skill-glow:hover {
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.4), 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== Hero gradient overlay ===== */
+.hero-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 20, 20, 0) 0%,
+    rgba(20, 20, 20, 0.4) 50%,
+    rgba(20, 20, 20, 0.9) 80%,
+    rgba(20, 20, 20, 1) 100%
+  );
+}
+
+.hero-gradient-left {
+  background: linear-gradient(
+    to right,
+    rgba(20, 20, 20, 0.95) 0%,
+    rgba(20, 20, 20, 0.7) 30%,
+    rgba(20, 20, 20, 0) 70%
+  );
+}
+
+/* ===== Navbar transition ===== */
+.navbar-transparent {
+  background: transparent;
+  transition: background-color 0.4s ease;
+}
+.navbar-solid {
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(10px);
+  transition: background-color 0.4s ease;
 }
