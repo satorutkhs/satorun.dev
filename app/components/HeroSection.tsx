@@ -56,32 +56,14 @@ export default function HeroSection() {
             href="#projects"
             className="inline-flex items-center gap-2 px-8 py-3 bg-nf-red text-white font-bold text-lg rounded hover:bg-nf-red-hover transition-all duration-200 hover:scale-105"
           >
-            <svg
-              className="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
+            <span className="material-symbols-outlined select-none">play_arrow</span>
             View Projects
           </a>
           <a
             href="#contact"
             className="inline-flex items-center gap-2 px-8 py-3 bg-nf-gray/80 text-white font-bold text-lg rounded hover:bg-nf-gray transition-all duration-200 hover:scale-105"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <span className="material-symbols-outlined select-none text-xl">info</span>
             Contact Me
           </a>
         </div>
@@ -89,19 +71,9 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg
-          className="w-6 h-6 text-nf-light-gray"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
+        <span className="material-symbols-outlined text-nf-light-gray text-2xl select-none">
+          arrow_downward
+        </span>
       </div>
     </section>
   );

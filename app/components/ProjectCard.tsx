@@ -30,23 +30,15 @@ export default function ProjectCard({
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition-colors"
               >
-                <svg
-                  className="w-6 h-6 text-nf-black ml-0.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+                <span className="material-symbols-outlined text-nf-black text-3xl select-none">
+                  play_arrow
+                </span>
               </a>
             ) : (
               <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-nf-black ml-0.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+                <span className="material-symbols-outlined text-nf-black text-3xl select-none">
+                  play_arrow
+                </span>
               </div>
             )}
           </div>

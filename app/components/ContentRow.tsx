@@ -3,7 +3,7 @@
 import { useRef } from "react";
 
 interface ContentRowProps {
-  title: string;
+  title: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -32,19 +32,9 @@ export default function ContentRow({ title, children }: ContentRowProps) {
           className="absolute left-0 top-0 bottom-0 z-20 w-12 flex items-center justify-center bg-nf-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
           aria-label="Scroll left"
         >
-          <svg
-            className="w-8 h-8 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <span className="material-symbols-outlined text-white text-3xl select-none">
+            chevron_left
+          </span>
         </button>
 
         {/* Scrollable content */}
@@ -61,19 +51,9 @@ export default function ContentRow({ title, children }: ContentRowProps) {
           className="absolute right-0 top-0 bottom-0 z-20 w-12 flex items-center justify-center bg-nf-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
           aria-label="Scroll right"
         >
-          <svg
-            className="w-8 h-8 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
+          <span className="material-symbols-outlined text-white text-3xl select-none">
+            chevron_right
+          </span>
         </button>
       </div>
     </div>
