@@ -3,6 +3,7 @@ import HeroSection from "./components/HeroSection";
 import ContentRow from "./components/ContentRow";
 import SkillCard from "./components/SkillCard";
 import ProjectCard from "./components/ProjectCard";
+import GitHistorySection from "./components/GitHistorySection";
 import Footer from "./components/Footer";
 
 /* ===================================================================
@@ -209,6 +210,9 @@ export default function Home() {
             ))}
           </ContentRow>
         </section>
+
+        {/* Development Timeline (Git History) */}
+        <GitHistorySection />
 
         {/* Education */}
         <section id="education" className="px-6 md:px-16 mb-16">
