@@ -10,7 +10,7 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="https://github.com/"
+              href="https://github.com/satorutkhs"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-nf-gray/50 hover:bg-nf-gray text-white text-sm font-medium rounded transition-colors"

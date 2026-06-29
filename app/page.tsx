@@ -40,32 +40,52 @@ const skills = {
 
 const projects = [
   {
-    title: "Portfolio Website",
+    title: "Dotto — 大学ポータルアプリ",
     description:
-      "React / Next.js で構築した Netflix 風ポートフォリオサイト。SSR・ダークテーマ・アニメーションを実装。",
-    tags: ["Next.js", "React", "Tailwind CSS"],
-    imageGradient: "linear-gradient(135deg, #E50914 0%, #831010 100%)",
-  },
-  {
-    title: "Research Project",
-    description:
-      "複雑系科学に基づくシミュレーション・データ分析ツール。Python と可視化ライブラリを活用。",
-    tags: ["Python", "Data Science", "Visualization"],
+      "公立はこだて未来大学の学生向けポータルアプリ。Flutter/Dart で開発し、Go の BFF API と Firebase を活用。プロジェクト学習として3年間継続開発中。⭐9",
+    tags: ["Flutter", "Dart", "Go", "Firebase"],
     imageGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    link: "https://github.com/fun-dotto",
   },
   {
-    title: "Web Application",
+    title: "EventPinMap",
     description:
-      "フルスタック Web アプリケーション。ユーザー認証・データベース・REST API を実装。",
-    tags: ["Node.js", "React", "PostgreSQL"],
+      "Tornado 2025 チーム開発プロジェクト。イベント情報を地図上にピン表示する Web アプリ。",
+    tags: ["TypeScript", "Team Dev"],
+    imageGradient: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+    link: "https://github.com/Tornado2025-team03/eventpinmap",
+  },
+  {
+    title: "girlfriend",
+    description:
+      "じゃがりこちゃーはんチームで開発したモバイルアプリ。Flutter/Dart で実装。",
+    tags: ["Flutter", "Dart", "Team Dev"],
     imageGradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    link: "https://github.com/Jagariko-fried-rice/girlfriend",
   },
   {
-    title: "Mobile App Prototype",
+    title: "satorun.dev — Portfolio",
     description:
-      "UIプロトタイプからインタラクティブなモバイルアプリのコンセプトを開発。",
-    tags: ["React Native", "Figma", "UI/UX"],
+      "Next.js + Tailwind CSS で構築した Netflix 風ポートフォリオサイト。Cloudflare Workers にデプロイ。",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    imageGradient: "linear-gradient(135deg, #E50914 0%, #831010 100%)",
+    link: "https://github.com/satorutkhs/satorun.dev",
+  },
+  {
+    title: "SUUMO コンテスト作品",
+    description:
+      "wowbase コンテストに出展した不動産系 Web アプリケーション。Vercel にデプロイ。",
+    tags: ["TypeScript", "React", "Vercel"],
     imageGradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    link: "https://github.com/satorutkhs/wowbase-contest-suumo2",
+  },
+  {
+    title: "JS Gallery Workshop",
+    description:
+      "JavaScript のワークショップ用に作成したギャラリーアプリケーション。",
+    tags: ["JavaScript", "HTML", "CSS"],
+    imageGradient: "linear-gradient(135deg, #f7971e 0%, #ffd200 100%)",
+    link: "https://github.com/satorutkhs/js-gallery-ws",
   },
 ];
 
@@ -168,6 +188,7 @@ export default function Home() {
                 description={project.description}
                 tags={project.tags}
                 imageGradient={project.imageGradient}
+                link={project.link}
               />
             ))}
           </ContentRow>
