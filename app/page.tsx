@@ -48,6 +48,14 @@ const projects = [
     link: "https://github.com/fun-dotto",
   },
   {
+    title: "GDGoC Japan Hackathon",
+    description:
+      "Google Developer Groups on Campus Japan が主催した全国ハッカソン。コア運営メンバー（Organizer）として全体の企画・進行および技術的サポートを担当。",
+    tags: ["GDGoC", "Organizer", "Hackathon"],
+    imageGradient: "linear-gradient(135deg, #4285F4 0%, #34A853 100%)",
+    link: "https://github.com/GDGoC-Japan-Hackathon",
+  },
+  {
     title: "EventPinMap",
     description:
       "Tornado 2025 チーム開発プロジェクト。イベント情報を地図上にピン表示する Web アプリ。",
@@ -78,6 +86,14 @@ const projects = [
     tags: ["TypeScript", "React", "Vercel"],
     imageGradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
     link: "https://github.com/satorutkhs/wowbase-contest-suumo2",
+  },
+  {
+    title: "fun-prism-group-report-tex",
+    description:
+      "公立はこだて未来大学のプロジェクト学習におけるグループ報告書をLaTeX (Prism) で作成・管理するための手順書およびテンプレート。",
+    tags: ["LaTeX", "Prism", "Document"],
+    imageGradient: "linear-gradient(135deg, #ff9966 0%, #ff5e62 100%)",
+    link: "https://github.com/satorutkhs/fun-prism-group-report-tex",
   },
   {
     title: "JS Gallery Workshop",
