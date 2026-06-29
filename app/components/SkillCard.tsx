@@ -1,6 +1,6 @@
 interface SkillCardProps {
   name: string;
-  icon: string;
+  icon: string | string[];
   category: string;
   level: number; // 1-5
 }
@@ -15,7 +15,13 @@ export default function SkillCard({
     <div className="card-hover skill-glow flex-shrink-0 w-40 md:w-48 bg-nf-card-bg rounded-md overflow-hidden cursor-pointer group">
       {/* Icon area */}
       <div className="relative h-28 md:h-32 flex items-center justify-center bg-gradient-to-br from-nf-gray to-nf-dark">
-        <span className="text-4xl md:text-5xl">{icon}</span>
+        <div className="flex gap-3 text-4xl md:text-5xl">
+          {Array.isArray(icon) ? (
+            icon.map((ic) => <i key={ic} className={ic} />)
+          ) : (
+            <i className={icon} />
+          )}
+        </div>
         {/* Category badge */}
         <span className="absolute top-2 left-2 text-[10px] px-2 py-0.5 bg-nf-red/80 text-white rounded font-semibold uppercase tracking-wider">
           {category}

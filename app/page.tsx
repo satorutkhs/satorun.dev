@@ -11,25 +11,25 @@ import Footer from "./components/Footer";
 
 const skills = {
   frontend: [
-    { name: "React", icon: "⚛️", level: 4 },
-    { name: "Next.js", icon: "▲", level: 4 },
-    { name: "TypeScript", icon: "🔷", level: 4 },
-    { name: "HTML/CSS", icon: "🎨", level: 5 },
-    { name: "Tailwind CSS", icon: "💨", level: 4 },
-    { name: "JavaScript", icon: "⚡", level: 5 },
+    { name: "React", icon: "devicon-react-original colored", level: 4 },
+    { name: "Next.js", icon: "devicon-nextjs-plain", level: 4 },
+    { name: "TypeScript", icon: "devicon-typescript-plain colored", level: 4 },
+    { name: "HTML/CSS", icon: ["devicon-html5-plain colored", "devicon-css3-plain colored"], level: 5 },
+    { name: "Tailwind CSS", icon: "devicon-tailwindcss-original colored", level: 4 },
+    { name: "JavaScript", icon: "devicon-javascript-plain colored", level: 5 },
   ],
   backend: [
-    { name: "Node.js", icon: "🟢", level: 3 },
-    { name: "Python", icon: "🐍", level: 4 },
-    { name: "SQL", icon: "🗄️", level: 3 },
-    { name: "REST API", icon: "🔗", level: 4 },
+    { name: "Node.js", icon: "devicon-nodejs-plain colored", level: 3 },
+    { name: "Python", icon: "devicon-python-plain colored", level: 4 },
+    { name: "SQL", icon: "devicon-postgresql-plain colored", level: 3 },
+    { name: "REST API", icon: "devicon-openapi-plain colored", level: 4 },
   ],
   tools: [
-    { name: "Git", icon: "🔀", level: 4 },
-    { name: "Docker", icon: "🐳", level: 3 },
-    { name: "Linux", icon: "🐧", level: 3 },
-    { name: "VS Code", icon: "💻", level: 5 },
-    { name: "Figma", icon: "🎯", level: 3 },
+    { name: "Git", icon: "devicon-git-plain colored", level: 4 },
+    { name: "Docker", icon: "devicon-docker-plain colored", level: 3 },
+    { name: "Linux", icon: "devicon-linux-plain colored", level: 3 },
+    { name: "VS Code", icon: "devicon-vscode-plain colored", level: 5 },
+    { name: "Figma", icon: "devicon-figma-plain colored", level: 3 },
   ],
 };
 
@@ -69,7 +69,7 @@ const education = {
   faculty: "システム情報科学部",
   course: "複雑系コース",
   year: "4年",
-  icon: "🎓",
+  icon: "school",
 };
 
 /* ===================================================================
@@ -86,7 +86,14 @@ export default function Home() {
       <main className="-mt-16 relative z-10">
         {/* Skills: Frontend */}
         <section id="skills">
-          <ContentRow title="🎯 Frontend Skills">
+          <ContentRow
+            title={
+              <span className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-nf-red select-none">code</span>
+                Frontend Skills
+              </span>
+            }
+          >
             {skills.frontend.map((skill) => (
               <SkillCard
                 key={skill.name}
@@ -99,7 +106,14 @@ export default function Home() {
           </ContentRow>
 
           {/* Skills: Backend */}
-          <ContentRow title="⚙️ Backend & Data">
+          <ContentRow
+            title={
+              <span className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-nf-red select-none">database</span>
+                Backend & Data
+              </span>
+            }
+          >
             {skills.backend.map((skill) => (
               <SkillCard
                 key={skill.name}
@@ -112,7 +126,14 @@ export default function Home() {
           </ContentRow>
 
           {/* Skills: Tools */}
-          <ContentRow title="🛠️ Tools & Environment">
+          <ContentRow
+            title={
+              <span className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-nf-red select-none">build</span>
+                Tools & Environment
+              </span>
+            }
+          >
             {skills.tools.map((skill) => (
               <SkillCard
                 key={skill.name}
@@ -127,7 +148,14 @@ export default function Home() {
 
         {/* Projects */}
         <section id="projects">
-          <ContentRow title="🚀 Projects">
+          <ContentRow
+            title={
+              <span className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-nf-red select-none">rocket_launch</span>
+                Projects
+              </span>
+            }
+          >
             {projects.map((project) => (
               <ProjectCard
                 key={project.title}
@@ -142,12 +170,17 @@ export default function Home() {
 
         {/* Education */}
         <section id="education" className="px-6 md:px-16 mb-16">
-          <h2 className="text-xl md:text-2xl font-bold mb-6 text-nf-white">
-            🎓 Education
+          <h2 className="text-xl md:text-2xl font-bold mb-6 text-nf-white flex items-center gap-2">
+            <span className="material-symbols-outlined text-nf-red select-none">school</span>
+            Education
           </h2>
           <div className="max-w-2xl bg-nf-card-bg rounded-md p-6 border border-nf-gray/30 card-hover">
             <div className="flex items-start gap-5">
-              <div className="text-5xl">{education.icon}</div>
+              <div className="text-5xl flex items-center justify-center">
+                <span className="material-symbols-outlined text-5xl text-nf-red select-none">
+                  {education.icon}
+                </span>
+              </div>
               <div>
                 <h3 className="text-lg font-bold text-white mb-1">
                   {education.university}
