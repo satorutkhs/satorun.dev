@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 @import url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css');
+@import "tailwindcss";
+
 
 /* ===== Netflix-inspired Dark Theme ===== */
 :root {
