@@ -230,14 +230,12 @@ export default function GitHistorySection() {
     return counts;
   }, []);
 
-  // 現在選択されているコミット詳細（クリックした日、またはなければ最新コミット）
+  // 現在選択されているコミット詳細（クリックした日のみ抽出、選択がなければ空）
   const activeCommits = useMemo(() => {
     if (selectedDate) {
       return commits.filter((c) => c.date === selectedDate);
     }
-    // デフォルトは最新コミット（同日のコミット群）
-    const latestDate = commits[0]?.date;
-    return commits.filter((c) => c.date === latestDate);
+    return [];
   }, [selectedDate]);
 
   const getGrassColor = (count: number, hasActual: boolean) => {
@@ -393,72 +391,64 @@ export default function GitHistorySection() {
         </div>
       </div>
 
-      {/* コミット詳細表示カード */}
-      <div className="mt-6 max-w-4xl">
-        <div className="text-xs text-nf-light-gray mb-3 flex items-center justify-between">
-          <span>
-            {selectedDate ? (
-              <>
-                Commits on <strong className="text-white">{selectedDate}</strong>
-              </>
-            ) : (
-              <>
-                Showing <strong className="text-white">Latest Activity</strong> (on {commits[0]?.date})
-              </>
-            )}
-          </span>
-          {selectedDate && (
+      {/* コミット詳細表示カード (日付選択時のみ表示) */}
+      {selectedDate && activeCommits.length > 0 && (
+        <div className="mt-6 max-w-4xl animate-fade-in">
+          <div className="text-xs text-nf-light-gray mb-3 flex items-center justify-between">
+            <span>
+              Commits on <strong className="text-white">{selectedDate}</strong>
+            </span>
             <button
               onClick={() => setSelectedDate(null)}
               className="text-nf-red hover:underline cursor-pointer flex items-center gap-0.5"
             >
               <span className="material-symbols-outlined text-[12px]">close</span>
-              Reset to Latest
+              Clear Selection
             </button>
-          )}
-        </div>
+          </div>
 
-        <div className="space-y-4">
-          {activeCommits.map((commit) => (
-            <div
-              key={commit.hash}
-              className="bg-nf-card-bg rounded-md p-5 border border-nf-gray/20 transition-all duration-300 hover:border-nf-red/30"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-3 text-xs">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-nf-light-gray bg-nf-gray/40 px-2 py-0.5 rounded border border-nf-gray/30">
-                    {commit.hash}
-                  </span>
-                  <span
-                    className={`text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border ${getTypeColor(
-                      commit.type
-                    )}`}
-                  >
-                    {commit.type}
-                  </span>
-                  <span className="bg-blue-600 text-white text-[10px] font-mono px-2 py-0.5 rounded">
-                    {commit.branch}
-                  </span>
+          <div className="space-y-4">
+            {activeCommits.map((commit) => (
+              <div
+                key={commit.hash}
+                className="bg-nf-card-bg rounded-md p-5 border border-nf-gray/20 transition-all duration-300 hover:border-nf-red/30"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-3 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-nf-light-gray bg-nf-gray/40 px-2 py-0.5 rounded border border-nf-gray/30">
+                      {commit.hash}
+                    </span>
+                    <span
+                      className={`text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border ${getTypeColor(
+                        commit.type
+                      )}`}
+                    >
+                      {commit.type}
+                    </span>
+                    <span className="bg-blue-600 text-white text-[10px] font-mono px-2 py-0.5 rounded">
+                      {commit.branch}
+                    </span>
+                  </div>
+                  <div className="text-nf-light-gray flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[14px]">
+                      calendar_today
+                    </span>
+                    {commit.date}
+                  </div>
                 </div>
-                <div className="text-nf-light-gray flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[14px]">
-                    calendar_today
-                  </span>
-                  {commit.date}
-                </div>
+
+                <h3 className="text-sm md:text-base font-bold text-white mb-2 leading-snug hover:text-nf-red transition-colors duration-300">
+                  {commit.message}
+                </h3>
+
+                <p className="text-xs md:text-sm text-nf-light-gray leading-relaxed">
+                  {commit.description}
+                </p>
               </div>
-
-              <h3 className="text-sm md:text-base font-bold text-white mb-2 leading-snug hover:text-nf-red transition-colors duration-300">
-                {commit.message}
-              </h3>
-
-              <p className="text-xs md:text-sm text-nf-light-gray leading-relaxed">
-                {commit.description}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }
