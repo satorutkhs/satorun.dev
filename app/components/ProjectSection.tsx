@@ -4,7 +4,7 @@ interface Project {
   title: string;
   description: string;
   tags: string[];
-  imageGradient: string;
+  imageGradient: string; // 互換性のため残す
   link?: string;
 }
 
@@ -32,46 +32,50 @@ export default function ProjectSection({ projects }: ProjectSectionProps) {
           {projects.map((project) => (
             <div
               key={project.title}
-              className="card-elevated overflow-hidden group"
+              className="card-elevated overflow-hidden group bg-white flex flex-col h-full border-t-[3px] border-t-jal-border hover:border-t-jal-red transition-all duration-300"
             >
-              {/* Thumbnail */}
-              <div
-                className="h-36 md:h-40 relative"
-                style={{ background: project.imageGradient }}
-              >
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                  {project.link && (
-                    <Link
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="opacity-0 group-hover:opacity-100 transition-all duration-300 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center hover:bg-white hover:scale-110"
-                    >
-                      <span className="material-symbols-outlined text-jal-dark text-xl select-none">
-                        open_in_new
-                      </span>
-                    </Link>
-                  )}
+              {/* Info Area */}
+              <div className="p-6 flex flex-col flex-1">
+                {/* Folder icon in JAL style */}
+                <div className="w-10 h-10 rounded-lg bg-jal-bg flex items-center justify-center text-jal-red mb-4 group-hover:bg-jal-red-light transition-colors duration-200">
+                  <span className="material-symbols-outlined text-xl select-none">
+                    folder_open
+                  </span>
                 </div>
-              </div>
 
-              {/* Info */}
-              <div className="p-5">
                 <h3 className="text-sm font-bold text-jal-dark mb-2 group-hover:text-jal-red transition-colors leading-snug">
                   {project.title}
                 </h3>
-                <p className="text-xs text-jal-text-secondary leading-relaxed mb-4 line-clamp-2">
+                
+                <p className="text-xs text-jal-text-secondary leading-relaxed mb-6 flex-1">
                   {project.description}
                 </p>
+
                 {/* Tags */}
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1.5 mb-4">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="tag">
+                    <span key={tag} className="tag text-[10px]">
                       {tag}
                     </span>
                   ))}
                 </div>
+
+                {/* Footer link */}
+                {project.link && (
+                  <div className="border-t border-jal-border-light pt-4 mt-auto">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-jal-red hover:text-jal-red-hover transition-colors"
+                    >
+                      リポジトリを見る
+                      <span className="material-symbols-outlined text-[14px]">
+                        open_in_new
+                      </span>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}
