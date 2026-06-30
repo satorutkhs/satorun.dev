@@ -18,4 +18,7 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+export const isFirebaseMocked =
+  !process.env.NEXT_PUBLIC_FIREBASE_API_KEY ||
+  process.env.NEXT_PUBLIC_FIREBASE_API_KEY === "mock-api-key-for-build";
 export default app;
