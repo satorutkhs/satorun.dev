@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
-/* ===== JAL-Inspired Elegant Light Theme ===== */
+/* ===== JAL-Inspired Premium Light Theme ===== */
 :root {
-  /* Primary palette */
+  /* Base Palette */
   --jal-white: #FFFFFF;
   --jal-bg: #F5F6F8;
   --jal-bg-warm: #FAFAFA;
@@ -12,18 +12,21 @@
   --jal-red-hover: #A00D24;
   --jal-red-light: #FDF2F4;
   --jal-dark: #1A1A1A;
+  
+  /* Text colors */
   --jal-text: #333333;
   --jal-text-secondary: #666666;
-  --jal-text-muted: #999999;
+  --jal-text-muted: #8E8E93;
+  
+  /* Borders */
   --jal-border: #E5E7EB;
-  --jal-border-light: #F0F0F0;
+  --jal-border-light: #F2F2F7;
+  
+  /* Card shadows */
   --jal-card-bg: #FFFFFF;
-  --jal-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --jal-card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
-
-  /* Accent blues (JAL secondary) */
-  --jal-blue: #003D7A;
-  --jal-blue-light: #E8F0FE;
+  --jal-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --jal-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --jal-shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.06);
 
   --background: var(--jal-bg);
   --foreground: var(--jal-text);
@@ -42,44 +45,54 @@
   --color-jal-text: var(--jal-text);
   --color-jal-text-secondary: var(--jal-text-secondary);
   --color-jal-text-muted: var(--jal-text-muted);
-  --color-jal-border: var(--jal-border);
-  --color-jal-border-light: var(--jal-border-light);
-  --color-jal-card-bg: var(--jal-card-bg);
-  --color-jal-blue: var(--jal-blue);
-  --color-jal-blue-light: var(--jal-blue-light);
-  --font-sans: var(--font-noto-sans-jp), var(--font-inter), 'Noto Sans JP', 'Inter', sans-serif;
+  --color-jal-border: var(--color-jal-border);
+  --color-jal-border-light: var(--color-jal-border-light);
+  --color-jal-card-bg: var(--color-jal-card-bg);
+  --font-sans: var(--font-noto-sans-jp), -apple-system, BlinkMacSystemFont, 'Noto Sans JP', sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-noto-sans-jp), var(--font-inter), 'Noto Sans JP', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-noto-sans-jp), -apple-system, BlinkMacSystemFont, 'Noto Sans JP', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== Custom Scrollbar (subtle) ===== */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--jal-bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--jal-border);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--jal-text-muted);
+/* ===== Smooth Physics-like Transitions ===== */
+.transition-premium {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ===== Animations ===== */
+/* ===== Interactive scale & press effect (Physical feedback) ===== */
+.interactive-press {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+}
+.interactive-press:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.interactive-press:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* ===== Sophisticated Whitespace Card Style ===== */
+.card-premium {
+  background: var(--jal-card-bg);
+  border: 1px solid var(--jal-border-light);
+  box-shadow: var(--jal-shadow-sm);
+  border-radius: 8px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+.card-premium:hover {
+  box-shadow: var(--jal-shadow-lg);
+  transform: translateY(-4px);
+}
+
+/* ===== Elegant Scroll Indicator & Animation ===== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -87,170 +100,87 @@ body {
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 .animate-fade-in-up {
-  animation: fadeInUp 0.7s ease-out forwards;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.5s ease-out forwards;
-}
-
-/* Staggered animation delays */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-.delay-600 { animation-delay: 0.6s; }
-
-/* ===== Card styles ===== */
-.card-elevated {
-  background: var(--jal-card-bg);
-  box-shadow: var(--jal-card-shadow);
-  border: 1px solid var(--jal-border-light);
-  border-radius: 8px;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-.card-elevated:hover {
-  box-shadow: var(--jal-card-shadow-hover);
-  transform: translateY(-2px);
-}
-
-/* ===== Section divider ===== */
+/* ===== Divider ===== */
 .section-divider {
-  width: 40px;
-  height: 3px;
+  width: 32px;
+  height: 2px;
   background: var(--jal-red);
-  border-radius: 2px;
+  margin-bottom: 2rem;
 }
 
-/* ===== Navbar ===== */
-.navbar-white {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--jal-border);
-  transition: box-shadow 0.3s ease;
-}
-.navbar-white.scrolled {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-}
-
-/* ===== Hero gradient overlays (light) ===== */
-.hero-overlay {
-  background: linear-gradient(
-    135deg,
-    rgba(245, 246, 248, 0.95) 0%,
-    rgba(245, 246, 248, 0.7) 50%,
-    rgba(245, 246, 248, 0.3) 100%
-  );
-}
-
-/* ===== Blog / Content styles ===== */
-.prose-jal {
-  color: var(--jal-text);
-  line-height: 1.8;
-}
-.prose-jal h1,
-.prose-jal h2,
-.prose-jal h3 {
-  color: var(--jal-dark);
-  font-weight: 700;
-}
-.prose-jal a {
-  color: var(--jal-red);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-.prose-jal a:hover {
-  color: var(--jal-red-hover);
-}
-.prose-jal code {
-  background: var(--jal-bg);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.875em;
-}
-.prose-jal pre {
-  background: var(--jal-dark);
-  color: #e5e5e5;
-  padding: 1.25rem;
-  border-radius: 8px;
-  overflow-x: auto;
-}
-.prose-jal blockquote {
-  border-left: 3px solid var(--jal-red);
-  padding-left: 1rem;
-  color: var(--jal-text-secondary);
-  font-style: italic;
-}
-
-/* ===== Button styles ===== */
+/* ===== Custom Button Overrides ===== */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1.5rem;
+  padding: 0.75rem 1.75rem;
   background: var(--jal-red);
   color: white;
   font-weight: 600;
   font-size: 0.875rem;
-  border-radius: 6px;
-  transition: background 0.2s ease, transform 0.15s ease;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
 }
 .btn-primary:hover {
   background: var(--jal-red-hover);
   transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(1px);
 }
 
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1.5rem;
+  padding: 0.75rem 1.75rem;
   background: transparent;
   color: var(--jal-text);
   font-weight: 600;
   font-size: 0.875rem;
   border: 1px solid var(--jal-border);
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, color 0.2s ease;
 }
 .btn-secondary:hover {
   border-color: var(--jal-red);
   color: var(--jal-red);
-  background: var(--jal-red-light);
+  transform: translateY(-1px);
+}
+.btn-secondary:active {
+  transform: translateY(1px);
 }
 
-/* ===== Tag / Badge ===== */
+/* ===== Blog / Prosey Typography ===== */
+.prose-jal {
+  color: var(--jal-text);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+}
+.prose-jal h1,
+.prose-jal h2,
+.prose-jal h3 {
+  color: var(--jal-dark);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ===== Tag style ===== */
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.625rem;
+  padding: 0.25rem 0.75rem;
   background: var(--jal-bg);
   color: var(--jal-text-secondary);
   font-size: 0.75rem;
   font-weight: 500;
-  border-radius: 4px;
+  border-radius: 2px;
   border: 1px solid var(--jal-border-light);
 }
 
