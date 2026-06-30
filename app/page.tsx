@@ -1,13 +1,12 @@
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import ContentRow from "./components/ContentRow";
-import SkillCard from "./components/SkillCard";
-import ProjectCard from "./components/ProjectCard";
+import SkillSection from "./components/SkillSection";
+import ProjectSection from "./components/ProjectSection";
 import GitHistorySection from "./components/GitHistorySection";
 import Footer from "./components/Footer";
 
 /* ===================================================================
- * 髙橋 慧流（Satoru Takahashi）のハードコーディングデータ
+ * 髙橋 慧流（Satoru Takahashi）のデータ
  * ================================================================= */
 
 const skills = {
@@ -51,7 +50,7 @@ const projects = [
   {
     title: "GDGoC Japan Hackathon",
     description:
-      "Google Developer Groups on Campus Japan が主催した全国ハッカソン。コア運営メンバー（Organizer）として全体の企画・進行および技術的サポートを担当。",
+      "Google Developer Groups on Campus Japan が主催した全国ハッカソン。コア運営メンバー（Organizer）として企画・進行を担当。",
     tags: ["GDGoC", "Organizer", "Hackathon"],
     imageGradient: "linear-gradient(135deg, #4285F4 0%, #34A853 100%)",
     link: "https://github.com/GDGoC-Japan-Hackathon",
@@ -75,9 +74,9 @@ const projects = [
   {
     title: "satorun.dev — Portfolio",
     description:
-      "Next.js + Tailwind CSS で構築した Netflix 風ポートフォリオサイト。Cloudflare Workers にデプロイ。",
+      "Next.js + Tailwind CSS で構築した Portfolio サイト。Cloudflare Workers にデプロイ。",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-    imageGradient: "linear-gradient(135deg, #E50914 0%, #831010 100%)",
+    imageGradient: "linear-gradient(135deg, #C8102E 0%, #7A0A1E 100%)",
     link: "https://github.com/satorutkhs/satorun.dev",
   },
   {
@@ -91,7 +90,7 @@ const projects = [
   {
     title: "fun-prism-group-report-tex",
     description:
-      "公立はこだて未来大学のプロジェクト学習におけるグループ報告書をLaTeX (Prism) で作成・管理するための手順書およびテンプレート。",
+      "公立はこだて未来大学のプロジェクト学習におけるグループ報告書をLaTeXで作成・管理するための手順書。",
     tags: ["LaTeX", "Prism", "Document"],
     imageGradient: "linear-gradient(135deg, #ff9966 0%, #ff5e62 100%)",
     link: "https://github.com/satorutkhs/fun-prism-group-report-tex",
@@ -111,7 +110,6 @@ const education = {
   faculty: "システム情報科学部",
   course: "複雑系コース",
   year: "4年",
-  icon: "school",
 };
 
 /* ===================================================================
@@ -120,125 +118,57 @@ const education = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-nf-black">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <HeroSection />
 
-      {/* Main Content — Netflix-style rows */}
-      <main className="-mt-16 relative z-10">
-        {/* Skills: Frontend */}
-        <section id="skills">
-          <ContentRow
-            title={
-              <span className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-nf-red select-none">code</span>
-                Frontend Skills
-              </span>
-            }
-          >
-            {skills.frontend.map((skill) => (
-              <SkillCard
-                key={skill.name}
-                name={skill.name}
-                icon={skill.icon}
-                category="Frontend"
-                level={skill.level}
-              />
-            ))}
-          </ContentRow>
-
-          {/* Skills: Backend */}
-          <ContentRow
-            title={
-              <span className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-nf-red select-none">database</span>
-                Backend & Data
-              </span>
-            }
-          >
-            {skills.backend.map((skill) => (
-              <SkillCard
-                key={skill.name}
-                name={skill.name}
-                icon={skill.icon}
-                category="Backend"
-                level={skill.level}
-              />
-            ))}
-          </ContentRow>
-
-          {/* Skills: Tools */}
-          <ContentRow
-            title={
-              <span className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-nf-red select-none">build</span>
-                Tools & Environment
-              </span>
-            }
-          >
-            {skills.tools.map((skill) => (
-              <SkillCard
-                key={skill.name}
-                name={skill.name}
-                icon={skill.icon}
-                category="Tools"
-                level={skill.level}
-              />
-            ))}
-          </ContentRow>
-        </section>
+      <main>
+        {/* Skills */}
+        <SkillSection
+          frontend={skills.frontend}
+          backend={skills.backend}
+          tools={skills.tools}
+        />
 
         {/* Projects */}
-        <section id="projects">
-          <ContentRow
-            title={
-              <span className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-nf-red select-none">rocket_launch</span>
-                Projects
-              </span>
-            }
-          >
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.title}
-                title={project.title}
-                description={project.description}
-                tags={project.tags}
-                imageGradient={project.imageGradient}
-                link={project.link}
-              />
-            ))}
-          </ContentRow>
-        </section>
+        <ProjectSection projects={projects} />
 
-        {/* Development Timeline (Git History) */}
+        {/* Git Activity */}
         <GitHistorySection />
 
         {/* Education */}
-        <section id="education" className="px-6 md:px-16 mb-16">
-          <h2 className="text-xl md:text-2xl font-bold mb-6 text-nf-white flex items-center gap-2">
-            <span className="material-symbols-outlined text-nf-red select-none">school</span>
-            Education
-          </h2>
-          <div className="max-w-2xl bg-nf-card-bg rounded-md p-6 border border-nf-gray/30 card-hover">
-            <div className="flex items-start gap-5">
-              <div className="text-5xl flex items-center justify-center">
-                <span className="material-symbols-outlined text-5xl text-nf-red select-none">
-                  {education.icon}
-                </span>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white mb-1">
-                  {education.university}
-                </h3>
-                <p className="text-sm text-nf-light-gray mb-1">
-                  {education.faculty}
-                </p>
-                <p className="text-sm text-nf-white/80">
-                  {education.course} — {education.year}
-                </p>
-                <div className="mt-3 inline-block px-3 py-1 bg-nf-red/20 text-nf-red text-xs font-semibold rounded">
-                  在籍中
+        <section id="education" className="py-16 md:py-20 bg-jal-bg">
+          <div className="max-w-5xl mx-auto px-6 md:px-8">
+            <div className="mb-10">
+              <p className="text-jal-red text-xs font-semibold tracking-[0.2em] uppercase mb-2">
+                Education
+              </p>
+              <h2 className="text-2xl md:text-3xl font-bold text-jal-dark mb-3">
+                学歴
+              </h2>
+              <div className="section-divider" />
+            </div>
+
+            <div className="card-elevated p-6 md:p-8 max-w-2xl">
+              <div className="flex items-start gap-5">
+                <div className="w-12 h-12 rounded-lg bg-jal-red-light flex items-center justify-center flex-shrink-0">
+                  <span className="material-symbols-outlined text-jal-red text-2xl select-none">
+                    school
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-jal-dark mb-1">
+                    {education.university}
+                  </h3>
+                  <p className="text-sm text-jal-text-secondary mb-1">
+                    {education.faculty}
+                  </p>
+                  <p className="text-sm text-jal-text mb-3">
+                    {education.course} — {education.year}
+                  </p>
+                  <div className="inline-block px-3 py-1 bg-jal-red-light text-jal-red text-xs font-semibold rounded">
+                    在籍中
+                  </div>
                 </div>
               </div>
             </div>
