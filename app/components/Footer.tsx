@@ -87,9 +87,6 @@ export default function Footer() {
           <p className="text-xs text-gray-500">
             &copy; {new Date().getFullYear()} 髙橋 慧流. Built with Next.js
           </p>
-          <p className="text-xs text-gray-600">
-            Designed with inspiration from JAL
-          </p>
         </div>
       </div>
     </footer>
