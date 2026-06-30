@@ -1,75 +1,85 @@
 @import url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
-
-/* ===== Netflix-inspired Dark Theme ===== */
+/* ===== JAL-Inspired Elegant Light Theme ===== */
 :root {
-  --nf-black: #141414;
-  --nf-dark: #1a1a1a;
-  --nf-gray: #2a2a2a;
-  --nf-light-gray: #808080;
-  --nf-white: #e5e5e5;
-  --nf-red: #E50914;
-  --nf-red-hover: #f40612;
-  --nf-card-bg: #181818;
-  --nf-gradient-top: rgba(20, 20, 20, 0);
-  --nf-gradient-bottom: rgba(20, 20, 20, 1);
+  /* Primary palette */
+  --jal-white: #FFFFFF;
+  --jal-bg: #F5F6F8;
+  --jal-bg-warm: #FAFAFA;
+  --jal-red: #C8102E;
+  --jal-red-hover: #A00D24;
+  --jal-red-light: #FDF2F4;
+  --jal-dark: #1A1A1A;
+  --jal-text: #333333;
+  --jal-text-secondary: #666666;
+  --jal-text-muted: #999999;
+  --jal-border: #E5E7EB;
+  --jal-border-light: #F0F0F0;
+  --jal-card-bg: #FFFFFF;
+  --jal-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --jal-card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
 
-  --background: #141414;
-  --foreground: #e5e5e5;
+  /* Accent blues (JAL secondary) */
+  --jal-blue: #003D7A;
+  --jal-blue-light: #E8F0FE;
+
+  --background: var(--jal-bg);
+  --foreground: var(--jal-text);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-nf-black: var(--nf-black);
-  --color-nf-dark: var(--nf-dark);
-  --color-nf-gray: var(--nf-gray);
-  --color-nf-light-gray: var(--nf-light-gray);
-  --color-nf-white: var(--nf-white);
-  --color-nf-red: var(--nf-red);
-  --color-nf-red-hover: var(--nf-red-hover);
-  --color-nf-card-bg: var(--nf-card-bg);
-  --font-sans: var(--font-inter);
+  --color-jal-white: var(--jal-white);
+  --color-jal-bg: var(--jal-bg);
+  --color-jal-bg-warm: var(--jal-bg-warm);
+  --color-jal-red: var(--jal-red);
+  --color-jal-red-hover: var(--jal-red-hover);
+  --color-jal-red-light: var(--jal-red-light);
+  --color-jal-dark: var(--jal-dark);
+  --color-jal-text: var(--jal-text);
+  --color-jal-text-secondary: var(--jal-text-secondary);
+  --color-jal-text-muted: var(--jal-text-muted);
+  --color-jal-border: var(--jal-border);
+  --color-jal-border-light: var(--jal-border-light);
+  --color-jal-card-bg: var(--jal-card-bg);
+  --color-jal-blue: var(--jal-blue);
+  --color-jal-blue-light: var(--jal-blue-light);
+  --font-sans: var(--font-noto-sans-jp), var(--font-inter), 'Noto Sans JP', 'Inter', sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-noto-sans-jp), var(--font-inter), 'Noto Sans JP', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== Custom Scrollbar ===== */
+/* ===== Custom Scrollbar (subtle) ===== */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--nf-black);
+  background: var(--jal-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--nf-gray);
-  border-radius: 4px;
+  background: var(--jal-border);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--nf-light-gray);
-}
-
-/* ===== Content Row Scroll ===== */
-.content-row-scroll {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.content-row-scroll::-webkit-scrollbar {
-  display: none;
+  background: var(--jal-text-muted);
 }
 
 /* ===== Animations ===== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -85,7 +95,7 @@ body {
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translateX(-30px);
   }
   to {
     opacity: 1;
@@ -93,25 +103,16 @@ body {
   }
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(229, 9, 20, 0.6);
-  }
-}
-
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 0.7s ease-out forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.6s ease-out forwards;
+  animation: slideInLeft 0.5s ease-out forwards;
 }
 
 /* Staggered animation delays */
@@ -121,51 +122,143 @@ body {
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
 .delay-600 { animation-delay: 0.6s; }
-.delay-700 { animation-delay: 0.7s; }
-.delay-800 { animation-delay: 0.8s; }
 
-/* ===== Card hover effect ===== */
-.card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* ===== Card styles ===== */
+.card-elevated {
+  background: var(--jal-card-bg);
+  box-shadow: var(--jal-card-shadow);
+  border: 1px solid var(--jal-border-light);
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-.card-hover:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-  z-index: 10;
-}
-
-/* ===== Skill card glow ===== */
-.skill-glow:hover {
-  box-shadow: 0 0 25px rgba(229, 9, 20, 0.4), 0 8px 30px rgba(0, 0, 0, 0.6);
+.card-elevated:hover {
+  box-shadow: var(--jal-card-shadow-hover);
+  transform: translateY(-2px);
 }
 
-/* ===== Hero gradient overlay ===== */
-.hero-gradient {
+/* ===== Section divider ===== */
+.section-divider {
+  width: 40px;
+  height: 3px;
+  background: var(--jal-red);
+  border-radius: 2px;
+}
+
+/* ===== Navbar ===== */
+.navbar-white {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--jal-border);
+  transition: box-shadow 0.3s ease;
+}
+.navbar-white.scrolled {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== Hero gradient overlays (light) ===== */
+.hero-overlay {
   background: linear-gradient(
-    to bottom,
-    rgba(20, 20, 20, 0) 0%,
-    rgba(20, 20, 20, 0.4) 50%,
-    rgba(20, 20, 20, 0.9) 80%,
-    rgba(20, 20, 20, 1) 100%
+    135deg,
+    rgba(245, 246, 248, 0.95) 0%,
+    rgba(245, 246, 248, 0.7) 50%,
+    rgba(245, 246, 248, 0.3) 100%
   );
 }
 
-.hero-gradient-left {
-  background: linear-gradient(
-    to right,
-    rgba(20, 20, 20, 0.95) 0%,
-    rgba(20, 20, 20, 0.7) 30%,
-    rgba(20, 20, 20, 0) 70%
-  );
+/* ===== Blog / Content styles ===== */
+.prose-jal {
+  color: var(--jal-text);
+  line-height: 1.8;
+}
+.prose-jal h1,
+.prose-jal h2,
+.prose-jal h3 {
+  color: var(--jal-dark);
+  font-weight: 700;
+}
+.prose-jal a {
+  color: var(--jal-red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-jal a:hover {
+  color: var(--jal-red-hover);
+}
+.prose-jal code {
+  background: var(--jal-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+.prose-jal pre {
+  background: var(--jal-dark);
+  color: #e5e5e5;
+  padding: 1.25rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.prose-jal blockquote {
+  border-left: 3px solid var(--jal-red);
+  padding-left: 1rem;
+  color: var(--jal-text-secondary);
+  font-style: italic;
 }
 
-/* ===== Navbar transition ===== */
-.navbar-transparent {
+/* ===== Button styles ===== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background: var(--jal-red);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--jal-red-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
   background: transparent;
-  transition: background-color 0.4s ease;
+  color: var(--jal-text);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid var(--jal-border);
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
-.navbar-solid {
-  background: rgba(20, 20, 20, 0.95);
-  backdrop-filter: blur(10px);
-  transition: background-color 0.4s ease;
+.btn-secondary:hover {
+  border-color: var(--jal-red);
+  color: var(--jal-red);
+  background: var(--jal-red-light);
+}
+
+/* ===== Tag / Badge ===== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  background: var(--jal-bg);
+  color: var(--jal-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid var(--jal-border-light);
+}
+
+/* ===== Content Row (hidden scrollbar) ===== */
+.content-row-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.content-row-scroll::-webkit-scrollbar {
+  display: none;
 }
