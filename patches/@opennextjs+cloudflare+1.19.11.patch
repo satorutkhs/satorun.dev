@@ -1,0 +1,35 @@
+diff --git a/node_modules/@opennextjs/cloudflare/dist/cli/build/patches/plugins/turbopack.js b/node_modules/@opennextjs/cloudflare/dist/cli/build/patches/plugins/turbopack.js
+index 4f0e134..798a645 100644
+--- a/node_modules/@opennextjs/cloudflare/dist/cli/build/patches/plugins/turbopack.js
++++ b/node_modules/@opennextjs/cloudflare/dist/cli/build/patches/plugins/turbopack.js
+@@ -248,7 +248,7 @@ function getInlinableChunks(tracedFiles) {
+         if (file === "[turbopack]_runtime.js") {
+             continue;
+         }
+-        if (file.includes(".next/server/chunks/")) {
++        if (file.includes(".next/server/chunks/") || file.includes(".next\\server\\chunks\\")) {
+             chunks.add(file);
+         }
+     }
+@@ -262,8 +262,8 @@ function inlineChunksFn(tracedFiles) {
+     switch(chunkPath) {
+ ${chunks
+         .map((chunk) => `      case "${
+-    // we only want the path after /path/to/.next/
+-    chunk.replace(/.*\/\.next\//, "")}": return require("${chunk}");`)
++    // we only want the path after /path/to/.next/ (cross-platform: Windows uses backslashes)
++    chunk.replace(/.*[\\/]\.next[\\/]/, "").replace(/\\/g, "/")}": return require("${chunk.replace(/\\/g, "/")}");`)
+         .join("\n")}
+       default:
+         throw new Error(\`Not found \${chunkPath}\`);
+@@ -282,8 +282,8 @@ ${chunks
+ export function loadWasmChunkFn(tracedFiles) {
+     const wasmFiles = tracedFiles.filter((f) => f.endsWith(".wasm"));
+     const cases = wasmFiles
+-        .map((absPath) => ({ absPath, relPath: absPath.replace(/.*\/\.next\//, "") }))
+-        .map(({ absPath, relPath }) => `      case "${relPath}": return (await import("${absPath}")).default;`)
++        .map((absPath) => ({ absPath, relPath: absPath.replace(/.*[\\/]\.next[\\/]/, "").replace(/\\/g, "/") }))
++        .map(({ absPath, relPath }) => `      case "${relPath}": return (await import("${absPath.replace(/\\/g, "/")}")).default;`)
+         .join("\n");
+     return `
+   async function loadWasmChunk(chunkPath) {
