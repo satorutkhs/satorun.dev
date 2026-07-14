@@ -5,7 +5,7 @@ import {
   orderBy,
   limit,
   type Timestamp,
-} from "firebase/firestore";
+} from "firebase/firestore/lite";
 import { db, isFirebaseMocked } from "./firebase";
 
 export interface ResearchMaterial {
