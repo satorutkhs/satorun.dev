@@ -50,7 +50,7 @@ export default function LoginPage() {
 
   if (user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-jal-bg">
+      <div className="min-h-dvh flex items-center justify-center bg-jal-bg">
         <div className="card-elevated p-8 max-w-md w-full mx-4 text-center">
           <span className="material-symbols-outlined text-jal-red text-4xl mb-4 select-none">
             check_circle
@@ -75,7 +75,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-jal-bg">
+    <div className="min-h-dvh flex items-center justify-center bg-jal-bg">
       <div className="w-full max-w-md mx-4">
         {/* Back link */}
         <Link
