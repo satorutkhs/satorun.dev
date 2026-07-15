@@ -26,7 +26,7 @@ export default function BlogDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-dvh">
         <Navbar />
         <main className="flex-1 flex items-center justify-center pt-24 bg-jal-bg">
           <div className="text-center">
@@ -43,7 +43,7 @@ export default function BlogDetailPage() {
 
   if (!post) {
     return (
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-dvh">
         <Navbar />
         <main className="flex-1 flex items-center justify-center pt-24 bg-jal-bg">
           <div className="text-center card-elevated p-10 mx-4">
@@ -72,7 +72,7 @@ export default function BlogDetailPage() {
   });
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-dvh">
       <Navbar />
 
       <main className="flex-1 pt-24 pb-16 bg-jal-bg">

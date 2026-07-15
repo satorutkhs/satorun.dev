@@ -1,114 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import type { CommitLog } from "../lib/github";
 
-interface CommitLog {
-  hash: string;
-  date: string;
-  branch: string;
-  message: string;
-  description: string;
-  type: "feature" | "bugfix" | "style" | "docs" | "merge";
+interface GitHistorySectionProps {
+  commits: CommitLog[];
+  dailyCounts: Record<string, number>;
 }
-
-const commits: CommitLog[] = [
-  {
-    hash: "b9c01f7",
-    date: "2026-06-29",
-    branch: "issue/5-icon",
-    message: "feat: fun-prism-group-report-texの追加とGDGoC-Japan-Hackathonを運営として再掲載",
-    description: "ユーザーからの要望に基づき、LaTeX手順書プロジェクトの追加、GDGoCハッカソンにおける運営（Organizer）としての役割説明をプロジェクト欄へ反映。",
-    type: "feature",
-  },
-  {
-    hash: "2e3f555",
-    date: "2026-06-29",
-    branch: "issue/5-icon",
-    message: "feat: プロジェクト欄を実際のGitHubリポジトリ・コントリビューション情報に更新",
-    description: "GitHub APIおよび各リポジトリのコントリビューターデータを解析し、実際の開発実績へと置き換え。",
-    type: "feature",
-  },
-  {
-    hash: "6fa050c",
-    date: "2026-06-29",
-    branch: "issue/5-icon",
-    message: "feat: PDFに基づきスキル情報を更新",
-    description: "スキルチェックシートPDFの内容を反映し、保有技術や経験レベルを完全同期。",
-    type: "feature",
-  },
-  {
-    hash: "cf9632a",
-    date: "2026-06-29",
-    branch: "issue/5-icon",
-    message: "fix: Google Material Symbolsの読み込み修正",
-    description: "Tailwind v4ビルドによるCDNインポート消失問題を回避。",
-    type: "bugfix",
-  },
-  {
-    hash: "f22a595",
-    date: "2026-06-29",
-    branch: "issue/5-icon",
-    message: "feat: スキルアイコンを公式ロゴに置き換え",
-    description: "すべてのスキルアイコンをDevicon公式ブランドロゴに統一。",
-    type: "style",
-  },
-  {
-    hash: "d581639",
-    date: "2026-06-29",
-    branch: "issue/5-icon",
-    message: "style: SVGアイコンをMaterial Symbolsに統一",
-    description: "ナビゲーション等のSVGをGoogle Material Symbolsに置き換え。",
-    type: "style",
-  },
-  {
-    hash: "3ef012f",
-    date: "2026-06-29",
-    branch: "issue/5-icon",
-    message: "style: アイコンフォントCSSインポート追加",
-    description: "フォント用CDNインポートをglobals.cssに追加。",
-    type: "style",
-  },
-  {
-    hash: "23cb895",
-    date: "2026-06-29",
-    branch: "issue/5-icon",
-    message: "docs: アイコン使用ルールをAGENTS.mdに追記",
-    description: "Google Material SymbolsおよびDeviconの規約を明記。",
-    type: "docs",
-  },
-  {
-    hash: "b551783",
-    date: "2026-06-25",
-    branch: "main",
-    message: "Merge: Cloudflare Workers自動デプロイ設定",
-    description: "Cloudflare Workersへの自動デプロイ設定ブランチを統合。",
-    type: "merge",
-  },
-  {
-    hash: "782b171",
-    date: "2026-06-25",
-    branch: "cloudflare-config",
-    message: "Add Cloudflare Workers configuration",
-    description: "Wrangler設定ファイルおよびデプロイ用スクリプトの整備。",
-    type: "feature",
-  },
-  {
-    hash: "389b23c",
-    date: "2026-06-25",
-    branch: "main",
-    message: "Merge: リッチデザインUI実装",
-    description: "UIブランチを本番へマージ。",
-    type: "merge",
-  },
-  {
-    hash: "0427ff8",
-    date: "2026-06-25",
-    branch: "issue/1-app",
-    message: "Initial UI implementation",
-    description: "Tailwind CSS、グラデーション、ホバー演出を用いたデザインの実装。",
-    type: "style",
-  },
-];
 
 // Shields.io 風バッジコンポーネント (light theme, refined)
 function ShieldBadge({ label, message, colorClass }: { label: string; message: string; colorClass: string }) {
@@ -124,42 +22,12 @@ function ShieldBadge({ label, message, colorClass }: { label: string; message: s
   );
 }
 
-export default function GitHistorySection() {
+export default function GitHistorySection({ commits, dailyCounts }: GitHistorySectionProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-
-  const getSimulatedCommits = (dateStr: string): number => {
-    const actualCount = commits.filter((c) => c.date === dateStr).length;
-    if (actualCount > 0) return actualCount;
-    let hash = 0;
-    for (let i = 0; i < dateStr.length; i++) {
-      hash = dateStr.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const baseRandom = Math.abs(hash) % 100;
-    const date = new Date(dateStr);
-    const day = date.getDay();
-    const isJune2026 = dateStr.startsWith("2026-06");
-    if (day === 0 || day === 6) {
-      if (isJune2026 && baseRandom < 30) return 1;
-      if (baseRandom < 10) return 1;
-      return 0;
-    } else {
-      if (isJune2026) {
-        if (baseRandom < 20) return 0;
-        if (baseRandom < 50) return 1;
-        if (baseRandom < 80) return 2;
-        if (baseRandom < 95) return 3;
-        return 4;
-      }
-      if (baseRandom < 55) return 0;
-      if (baseRandom < 80) return 1;
-      if (baseRandom < 93) return 2;
-      return 3;
-    }
-  };
 
   const calendarDays = useMemo(() => {
     const days = [];
-    const today = new Date("2026-06-30");
+    const today = new Date();
     const startDate = new Date(today);
     startDate.setDate(today.getDate() - 180);
     const startDay = startDate.getDay();
@@ -170,13 +38,13 @@ export default function GitHistorySection() {
     const currentDate = new Date(startDate);
     while (currentDate <= endDate) {
       const dateStr = currentDate.toISOString().split("T")[0];
-      const count = getSimulatedCommits(dateStr);
+      const count = dailyCounts[dateStr] || 0;
       const actualCommits = commits.filter((c) => c.date === dateStr);
       days.push({ date: dateStr, dayOfWeek: currentDate.getDay(), count, actualCommits });
       currentDate.setDate(currentDate.getDate() + 1);
     }
     return days;
-  }, []);
+  }, [commits, dailyCounts]);
 
   const weeks = useMemo(() => {
     const result = [];
@@ -198,12 +66,12 @@ export default function GitHistorySection() {
       if (c.type in counts) counts[c.type as keyof typeof counts]++;
     });
     return counts;
-  }, []);
+  }, [commits]);
 
   const activeCommits = useMemo(() => {
     if (selectedDate) return commits.filter((c) => c.date === selectedDate);
     return [];
-  }, [selectedDate]);
+  }, [selectedDate, commits]);
 
   const getGrassColor = (count: number, hasActual: boolean) => {
     if (hasActual) return "bg-jal-red ring-1 ring-jal-red/30 shadow-sm";

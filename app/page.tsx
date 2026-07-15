@@ -4,6 +4,7 @@ import SkillSection from "./components/SkillSection";
 import ProjectSection from "./components/ProjectSection";
 import GitHistorySection from "./components/GitHistorySection";
 import Footer from "./components/Footer";
+import { getCommitActivity } from "./lib/github";
 
 /* ===================================================================
  * 髙橋 慧流（Satoru Takahashi）のデータ
@@ -116,9 +117,11 @@ const education = {
  * Page Component
  * ================================================================= */
 
-export default function Home() {
+export default async function Home() {
+  const { commits, dailyCounts } = await getCommitActivity();
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-dvh">
       <Navbar />
       <HeroSection />
 
@@ -134,7 +137,7 @@ export default function Home() {
         <ProjectSection projects={projects} />
 
         {/* Git Activity */}
-        <GitHistorySection />
+        <GitHistorySection commits={commits} dailyCounts={dailyCounts} />
 
         {/* Education */}
         <section id="education" className="py-16 md:py-20 bg-jal-bg">

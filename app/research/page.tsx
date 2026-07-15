@@ -35,7 +35,7 @@ export default function ResearchPage() {
 
   if (authLoading || (!user && !authLoading)) {
     return (
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-dvh">
         <Navbar />
         <main className="flex-1 flex items-center justify-center pt-24 bg-jal-bg">
           <div className="text-center">
@@ -57,7 +57,7 @@ export default function ResearchPage() {
     : materials;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-dvh">
       <Navbar />
 
       <main className="flex-1 pt-24 pb-16 bg-jal-bg">

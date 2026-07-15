@@ -41,12 +41,12 @@ export default function SkillSection({ frontend, backend, tools }: SkillSectionP
         </div>
 
         {/* Category tabs - Glassmorphic minimal border */}
-        <div className="flex gap-2 mb-10 bg-jal-bg rounded-lg p-1.5 w-fit border border-jal-border-light">
+        <div className="flex flex-wrap gap-2 mb-10 bg-jal-bg rounded-lg p-1.5 w-fit border border-jal-border-light">
           {categories.map((cat) => (
             <button
               key={cat.key}
               onClick={() => setActiveTab(cat.key)}
-              className={`flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.05em] rounded-md transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-2 px-3 sm:px-5 py-2.5 text-xs font-bold uppercase tracking-[0.05em] rounded-md transition-all duration-300 cursor-pointer ${
                 activeTab === cat.key
                   ? "bg-white text-jal-red shadow-sm border border-jal-border-light scale-100"
                   : "text-jal-text-secondary hover:text-jal-text hover:bg-white/50"
