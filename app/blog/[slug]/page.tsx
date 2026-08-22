@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
+import Image from "next/image";
+import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getPostBySlug, getPublishedPosts } from "@/app/lib/blog";
 import Navbar from "@/app/components/Navbar";
@@ -10,6 +11,16 @@ import Footer from "@/app/components/Footer";
 // content/blog にある記事だけを静的生成し、それ以外の slug は 404 にする。
 // これで Workers 側のランタイムで記事を読みにいく経路が完全になくなる。
 export const dynamicParams = false;
+
+// 本文中の画像は Markdown 側に寸法情報がないため next/image は使えない。
+// /_next/image を通さない代わりに遅延読み込みと幅制限だけ付ける。
+const markdownComponents: Components = {
+  img: ({ src, alt }) =>
+    typeof src === "string" ? (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={src} alt={alt ?? ""} loading="lazy" decoding="async" className="max-w-full h-auto rounded-lg" />
+    ) : null,
+};
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -76,11 +87,14 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
           {/* Cover image */}
           {post.coverImageUrl && (
-            <div className="rounded-lg overflow-hidden mb-8 shadow-sm">
-              <img
+            <div className="relative h-56 md:h-72 rounded-lg overflow-hidden mb-8 shadow-sm">
+              <Image
                 src={post.coverImageUrl}
                 alt={post.title}
-                className="w-full h-56 md:h-72 object-cover"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover"
               />
             </div>
           )}
@@ -115,7 +129,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
           {/* Body */}
           <div className="card-elevated p-6 md:p-10">
             <div className="prose-jal">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
                 {post.content}
               </ReactMarkdown>
             </div>

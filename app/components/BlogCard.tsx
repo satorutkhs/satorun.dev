@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { BlogPost } from "@/app/lib/blog";
 
 interface BlogCardProps {
@@ -17,11 +18,13 @@ export default function BlogCard({ post }: BlogCardProps) {
       <article className="card-premium interactive-press overflow-hidden h-full flex flex-col bg-white">
         {/* Cover image */}
         {post.coverImageUrl ? (
-          <div className="h-44 bg-jal-bg overflow-hidden border-b border-jal-border-light">
-            <img
+          <div className="relative h-44 bg-jal-bg overflow-hidden border-b border-jal-border-light">
+            <Image
               src={post.coverImageUrl}
               alt={post.title}
-              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
             />
           </div>
         ) : (
