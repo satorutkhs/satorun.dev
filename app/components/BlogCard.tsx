@@ -62,8 +62,8 @@ export default function BlogCard({ post }: BlogCardProps) {
               {dateStr}
             </span>
             <span className="flex items-center gap-1.5 font-medium">
-              <span className="material-symbols-outlined text-[13px] select-none">visibility</span>
-              {post.viewCount} Views
+              <span className="material-symbols-outlined text-[13px] select-none">person</span>
+              {post.authorName}
             </span>
           </div>
         </div>
