@@ -49,3 +49,6 @@ next-env.d.ts
 !.dev.vars.example
 
 !.env.example
+
+# Generated from content/blog/*.md by scripts/generate-blog-data.mjs
+app/lib/blog-data.generated.ts
