@@ -1,69 +1,68 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { getPostBySlug, type BlogPost } from "@/app/lib/blog";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import ReactMarkdown, { type Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { getPostBySlug, getPublishedPosts } from "@/app/lib/blog";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import Link from "next/link";
 
-export default function BlogDetailPage() {
-  const params = useParams();
-  const slug = params?.slug as string;
+// content/blog にある記事だけを静的生成し、それ以外の slug は 404 にする。
+// これで Workers 側のランタイムで記事を読みにいく経路が完全になくなる。
+export const dynamicParams = false;
 
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
+// 本文中の画像は Markdown 側に寸法情報がないため next/image は使えない。
+// /_next/image を通さない代わりに遅延読み込みと幅制限だけ付ける。
+const markdownComponents: Components = {
+  img: ({ src, alt }) =>
+    typeof src === "string" ? (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={src} alt={alt ?? ""} loading="lazy" decoding="async" className="max-w-full h-auto rounded-lg" />
+    ) : null,
+};
 
-  useEffect(() => {
-    if (!slug) return;
-    getPostBySlug(slug)
-      .then(setPost)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [slug]);
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
 
-  if (loading) {
-    return (
-      <div className="flex flex-col min-h-dvh">
-        <Navbar />
-        <main className="flex-1 flex items-center justify-center pt-24 bg-jal-bg">
-          <div className="text-center">
-            <span className="material-symbols-outlined text-4xl text-jal-text-muted animate-spin select-none">
-              progress_activity
-            </span>
-            <p className="text-sm text-jal-text-muted mt-3">読み込み中...</p>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+export async function generateStaticParams() {
+  const posts = await getPublishedPosts(Number.MAX_SAFE_INTEGER);
+  return posts.map((post) => ({ slug: post.slug }));
+}
 
-  if (!post) {
-    return (
-      <div className="flex flex-col min-h-dvh">
-        <Navbar />
-        <main className="flex-1 flex items-center justify-center pt-24 bg-jal-bg">
-          <div className="text-center card-elevated p-10 mx-4">
-            <span className="material-symbols-outlined text-5xl text-jal-text-muted/30 select-none mb-3">
-              search_off
-            </span>
-            <h1 className="text-xl font-bold text-jal-dark mb-2">記事が見つかりません</h1>
-            <p className="text-sm text-jal-text-secondary mb-6">
-              お探しの記事は削除されたか、URLが正しくない可能性があります。
-            </p>
-            <Link href="/blog" className="btn-primary">
-              <span className="material-symbols-outlined text-lg select-none">arrow_back</span>
-              ブログ一覧に戻る
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) return { title: "記事が見つかりません" };
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      publishedTime: post.createdAt.toISOString(),
+      modifiedTime: post.updatedAt.toISOString(),
+      tags: post.tags,
+      ...(post.coverImageUrl ? { images: [post.coverImageUrl] } : {}),
+    },
+    twitter: {
+      card: post.coverImageUrl ? "summary_large_image" : "summary",
+      title: post.title,
+      description: post.excerpt,
+      ...(post.coverImageUrl ? { images: [post.coverImageUrl] } : {}),
+    },
+  };
+}
+
+export default async function BlogDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) notFound();
 
   const dateStr = post.createdAt.toLocaleDateString("ja-JP", {
     year: "numeric",
@@ -88,11 +87,14 @@ export default function BlogDetailPage() {
 
           {/* Cover image */}
           {post.coverImageUrl && (
-            <div className="rounded-lg overflow-hidden mb-8 shadow-sm">
-              <img
+            <div className="relative h-56 md:h-72 rounded-lg overflow-hidden mb-8 shadow-sm">
+              <Image
                 src={post.coverImageUrl}
                 alt={post.title}
-                className="w-full h-56 md:h-72 object-cover"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover"
               />
             </div>
           )}
@@ -113,15 +115,11 @@ export default function BlogDetailPage() {
             <div className="flex items-center gap-4 text-xs text-jal-text-muted">
               <span className="flex items-center gap-1">
                 <span className="material-symbols-outlined text-[14px] select-none">person</span>
-                {post.authorName || "Author"}
+                {post.authorName}
               </span>
               <span className="flex items-center gap-1">
                 <span className="material-symbols-outlined text-[14px] select-none">calendar_today</span>
                 {dateStr}
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px] select-none">visibility</span>
-                {post.viewCount} views
               </span>
             </div>
 
@@ -131,7 +129,7 @@ export default function BlogDetailPage() {
           {/* Body */}
           <div className="card-elevated p-6 md:p-10">
             <div className="prose-jal">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
                 {post.content}
               </ReactMarkdown>
             </div>

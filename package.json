@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "npm run generate:blog && next build",
     "dev": "next dev",
     "start": "next start",
     "lint": "eslint",
@@ -11,7 +11,9 @@
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "generate:blog": "node scripts/generate-blog-data.mjs",
+    "predev": "npm run generate:blog"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.19.11",
@@ -32,6 +34,7 @@
     "patch-package": "^8.0.1",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "wrangler": "^4.104.0"
+    "wrangler": "^4.104.0",
+    "gray-matter": "^4.0.3"
   }
 }
