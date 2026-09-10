@@ -15,6 +15,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
+  // 相対パスの OGP 画像 (記事のカバー画像など) を絶対 URL に解決するための基点。
+  metadataBase: new URL("https://satorun.dev"),
   title: "髙橋 慧流 | Satoru Takahashi",
   description:
     "髙橋 慧流（Satoru Takahashi）のポートフォリオサイト。公立はこだて未来大学 システム情報科学部 複雑系コース所属。プロジェクト・スキル・ブログ・研究資料を公開。",
