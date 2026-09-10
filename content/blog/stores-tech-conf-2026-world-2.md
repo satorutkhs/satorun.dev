@@ -4,10 +4,10 @@ excerpt: 記念すべき初ブログが STORES Tech Conf 2026 "World 2" の参�
 tags:
   - イベントレポート
   - カンファレンス
-status: draft
+status: published
 author: 髙橋 慧流
-date: 2026-09-10
-updated: 2026-09-10
+date: 2026-09-11
+updated: 2026-09-11
 coverImage: "/blog/stores-tech-conf-2026-world-2/img-8519.webp"
 ---
 
