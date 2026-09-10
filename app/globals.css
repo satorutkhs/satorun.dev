@@ -171,6 +171,133 @@ body {
   letter-spacing: -0.01em;
 }
 
+/* First child never needs a top gap (the card already has padding). */
+.prose-jal > :first-child {
+  margin-top: 0;
+}
+.prose-jal > :last-child {
+  margin-bottom: 0;
+}
+
+.prose-jal h1 {
+  font-size: 1.6rem;
+  line-height: 1.35;
+  margin: 0 0 1rem;
+}
+.prose-jal h2 {
+  font-size: 1.3rem;
+  line-height: 1.4;
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--jal-border-light);
+}
+.prose-jal h3 {
+  font-size: 1.1rem;
+  line-height: 1.45;
+  margin: 2rem 0 0.75rem;
+}
+
+.prose-jal p {
+  margin: 0 0 1.25rem;
+}
+
+.prose-jal ul,
+.prose-jal ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.5rem;
+}
+.prose-jal ul {
+  list-style: disc;
+}
+.prose-jal ol {
+  list-style: decimal;
+}
+.prose-jal li {
+  margin: 0.4rem 0;
+}
+.prose-jal li > ul,
+.prose-jal li > ol {
+  margin: 0.4rem 0 0.6rem;
+}
+
+.prose-jal blockquote {
+  margin: 0 0 1.25rem;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 3px solid var(--jal-red);
+  color: var(--jal-text-secondary);
+}
+.prose-jal blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.prose-jal img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+}
+
+.prose-jal a {
+  color: var(--jal-red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-jal a:hover {
+  color: var(--jal-red-hover);
+}
+
+.prose-jal strong {
+  font-weight: 700;
+  color: var(--jal-dark);
+}
+
+.prose-jal code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--jal-bg);
+  border: 1px solid var(--jal-border-light);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+.prose-jal pre {
+  margin: 0 0 1.25rem;
+  padding: 1rem;
+  overflow-x: auto;
+  background: var(--jal-dark);
+  border-radius: 8px;
+}
+.prose-jal pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #f2f2f7;
+  font-size: 0.85rem;
+}
+
+.prose-jal hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px solid var(--jal-border);
+}
+
+.prose-jal table {
+  width: 100%;
+  margin: 0 0 1.25rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.prose-jal th,
+.prose-jal td {
+  border: 1px solid var(--jal-border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.prose-jal th {
+  background: var(--jal-bg);
+  font-weight: 600;
+}
+
 /* ===== Tag style ===== */
 .tag {
   display: inline-flex;
